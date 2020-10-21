@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MaterialselectMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		BASEINFO_MATERIALSELECT
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		MATERIALSELECT_ID,	
+		SELECT_TYPE,	
+		SELECT_STATUS,	
+		PRIMARY_QTY,	
+		PRIMARY_UNIT,	
+		SECOND_QTY,	
+		SECOND_UNIT,	
+		QUALITY_LEVEL,	
+		MATERIAL_ID,	
+		MATERIAL_BARCODE,	
+		MATERIAL_LOTCODE,	
+		STOCKHAND_ID,
+		COMPANY_ID,	
+		DEPARTMENT_ID,	
+		GROUP_ID,	
+		CREATE_USER,	
+		CREATE_DATE
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{MATERIALSELECT_ID},	
+		#{SELECT_TYPE},	
+		#{SELECT_STATUS},	
+		#{PRIMARY_QTY},	
+		#{PRIMARY_UNIT},	
+		#{SECOND_QTY},	
+		#{SECOND_UNIT},	
+		#{QUALITY_LEVEL},	
+		#{MATERIAL_ID},	
+		#{MATERIAL_BARCODE},	
+		#{MATERIAL_LOTCODE},
+		#{STOCKHAND_ID},	
+		#{COMPANY_ID},	
+		#{DEPARTMENT_ID},	
+		#{GROUP_ID},	
+		#{CREATE_USER},	
+		#{CREATE_DATE}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			MATERIALSELECT_ID = #{MATERIALSELECT_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			MATERIALSELECT_ID = #{MATERIALSELECT_ID},
+			SELECT_TYPE = #{SELECT_TYPE},
+			SELECT_STATUS = #{SELECT_STATUS},
+			PRIMARY_QTY = #{PRIMARY_QTY},
+			PRIMARY_UNIT = #{PRIMARY_UNIT},
+			SECOND_QTY = #{SECOND_QTY},
+			SECOND_UNIT = #{SECOND_UNIT},
+			QUALITY_LEVEL = #{QUALITY_LEVEL},
+			MATERIAL_ID = #{MATERIAL_ID},
+			MATERIAL_BARCODE = #{MATERIAL_BARCODE},
+			MATERIAL_LOTCODE = #{MATERIAL_LOTCODE},
+			STOCKHAND_ID = #{STOCKHAND_ID},
+			COMPANY_ID = #{COMPANY_ID},
+			DEPARTMENT_ID = #{DEPARTMENT_ID},
+			GROUP_ID = #{GROUP_ID},
+			CREATE_USER = #{CREATE_USER},
+			CREATE_DATE = #{CREATE_DATE},
+		MATERIALSELECT_ID = MATERIALSELECT_ID
+		where 
+		MATERIALSELECT_ID = #{MATERIALSELECT_ID}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			MATERIALSELECT_ID = #{MATERIALSELECT_ID}
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+		   	a.MATERIALSELECT_ID as "MATERIALSELECT_ID",	
+			a.SELECT_TYPE as "SELECT_TYPE",	
+			CONCAT(round(a.PRIMARY_QTY,2),'') as "PRIMARY_QTY",	
+			a.PRIMARY_UNIT as "PRIMARY_UNIT",	
+			a.QUALITY_LEVEL as "QUALITY_LEVEL",	
+			a.MATERIAL_ID as "MATERIAL_ID",	
+			a.MATERIAL_BARCODE as "MATERIAL_BARCODE",
+			a.STOCKHAND_ID as "STOCKHAND_ID",	
+			a.CREATE_USER as "CREATE_USER",	
+			b.MATERIAL_CODE as "MATERIAL_CODE",	
+			b.MATERIAL_NAME as "MATERIAL_NAME",	
+			b.MATERIAL_DESC as "MATERIAL_DESC",	
+			b.MATERIAL_SPEC as "MATERIAL_SPEC"
+		from 
+			BASEINFO_MATERIALSELECT a,BASEINFO_MATERIAL b
+		where a.MATERIAL_ID = b.MATERIAL_ID
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				<!--	根据需求自己加检索条件
+					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or 
+					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+				-->
+				)
+		</if>
+		<if test="pd.SELECT_TYPE!= null and pd.SELECT_TYPE != ''"><!-- 关键词检索 -->
+			and
+				(
+					a.SELECT_TYPE = #{pd.SELECT_TYPE}
+				)
+		</if>
+		<if test="pd.CREATE_USER!= null and pd.CREATE_USER != ''"><!-- 关键词检索 -->
+			and
+				(
+					a.CREATE_USER = #{pd.CREATE_USER}
+				)
+		</if>
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="BIANMA!= null and BIANMA != ''"><!-- 关键词检索 -->
+			and SELECT_TYPE = #{BIANMA}
+		</if>
+		<if test="CREATE_USER!= null and CREATE_USER != ''"><!-- 关键词检索 -->
+			and CREATE_USER = #{CREATE_USER}
+		</if>
+		<if test="MATERIAL_NAME != null and MATERIAL_NAME != ''"><!-- 关键词检索 -->
+			and MATERIAL_NAME = #{MATERIAL_NAME}
+		</if>
+	</select>
+	
+	<select id="listCount" parameterType="pd" resultType="pd">
+		select
+			count(*) as "allCount"
+		from 
+		<include refid="tableName"></include>
+		where 	(
+					SELECT_TYPE = #{BIANMA}
+				)
+		   and
+				(
+					CREATE_USER = #{CREATE_USER}
+				)
+	</select>
+	
+	<select id="listMaterialCount" parameterType="pd" resultType="pd">
+		select
+			count(distinct MATERIAL_ID)  as "materialCount"
+		from 
+		<include refid="tableName"></include>
+		where  (
+					SELECT_TYPE = #{BIANMA}
+				)
+		   and
+				(
+					CREATE_USER = #{CREATE_USER}
+				)		
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			MATERIALSELECT_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- zhudafeng -->
+</mapper>

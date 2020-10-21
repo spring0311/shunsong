@@ -1,0 +1,13 @@
+.th-display-none{
+	display:none;
+}
+.width10{
+	width:10px;
+}
+.width15{
+	width:15%;
+}
+
+#machine_ul li{
+	list-style:none;
+}

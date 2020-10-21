@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/login
+END
+forgot_box.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/login/forgot_box.mustache
+END
+signup_box.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/login/signup_box.mustache
+END
+login_box.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/login/login_box.mustache
+END

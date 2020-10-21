@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/shunshuoerp/!svn/ver/437/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/layouts/partials/_shared/navbar
+END
+messages.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/shunshuoerp/!svn/ver/437/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/layouts/partials/_shared/navbar/messages.mustache
+END
+topmenu.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/shunshuoerp/!svn/ver/437/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/layouts/partials/_shared/navbar/topmenu.mustache
+END
+tabbed_user_notifications.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/shunshuoerp/!svn/ver/437/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/layouts/partials/_shared/navbar/tabbed_user_notifications.mustache
+END
+notifications.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/shunshuoerp/!svn/ver/437/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/layouts/partials/_shared/navbar/notifications.mustache
+END
+toggle_buttons.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/shunshuoerp/!svn/ver/437/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/layouts/partials/_shared/navbar/toggle_buttons.mustache
+END
+tasks.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/shunshuoerp/!svn/ver/437/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/layouts/partials/_shared/navbar/tasks.mustache
+END

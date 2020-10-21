@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SALE_DETAILMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		SALES_ORDER_DETAIL
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		ORDER_DETAIL_ID,	
+		ORDER_ID,	
+		LINE_ORDER,
+		MATERIAL_ID,	
+		MATERIAL_NUM,	
+		MATERIAL_WEIGHT,
+		SINGLE_WEIGHT,	
+		MATERIAL_NUM_PRICE,	
+		ORDER_TYPE_NO,
+		ORDER_SPEC,
+		DEMAND_SPEC,
+		ORDER_SPEC_THICKNESS,
+		ORDER_SPEC_WIDTH,
+		ORDER_SPEC_LENGTH,
+		ORDER_DENSITY_NUM,
+		MATERIAL_WEIGHT_PRICE,
+		MATERIAL_TAX_RATE,
+		MATERIAL_TOTAL_AMT,
+		SET_PRICE_FLAG,
+		MAKE_TYPE,
+		MAKE_PRICE,
+		MAKE_TOTAL_AMT,
+		DISCOUNT_AMT,
+		CUSTOMER_DRAWING_NO,
+		MATERIAL_TAX_AMT,	
+		MATERIAL_EXD_TAX_AMT,	
+		TOTAL_AMT,	
+		PACK_TYPE,	
+		COMPANY_ID,	
+		DEPARTMENT_ID,	
+		GROUP_ID,	
+		CREATE_USER,	
+		CREATE_DATE,	
+		UPDATE_USER,	
+		UPDATE_DATE,	
+		REMARK_DETAIL,	
+		DETAIL_STATUS,	
+		EXT1,	
+		EXT2,	
+		EXT3,	
+		EXT4,	
+		EXT5
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{ORDER_DETAIL_ID},	
+		#{ORDER_ID},
+		#{LINE_ORDER},	
+		#{MATERIAL_ID},		
+		#{MATERIAL_NUM},	
+		#{MATERIAL_WEIGHT},	
+		#{SINGLE_WEIGHT},
+		#{MATERIAL_NUM_PRICE},	
+		#{ORDER_TYPE_NO},
+		#{ORDER_SPEC},
+		#{DEMAND_SPEC},
+		#{ORDER_SPEC_THICKNESS},
+		#{ORDER_SPEC_WIDTH},
+		#{ORDER_SPEC_LENGTH},
+		#{ORDER_DENSITY_NUM},
+		#{MATERIAL_WEIGHT_PRICE},
+		#{MATERIAL_TAX_RATE},
+		#{MATERIAL_TOTAL_AMT},
+		#{SET_PRICE_FLAG},
+		#{MAKE_TYPE},
+		#{MAKE_PRICE},
+		#{MAKE_TOTAL_AMT},
+		#{DISCOUNT_AMT},	
+		#{CUSTOMER_DRAWING_NO},
+		#{MATERIAL_TAX_AMT},	
+		#{MATERIAL_EXD_TAX_AMT},	
+		#{TOTAL_AMT},	
+		#{PACK_TYPE},	
+		#{COMPANY_ID},	
+		#{DEPARTMENT_ID},	
+		#{GROUP_ID},	
+		#{CREATE_USER},	
+		#{CREATE_DATE},	
+		#{UPDATE_USER},	
+		#{UPDATE_DATE},	
+		#{REMARK_DETAIL},	
+		#{DETAIL_STATUS},	
+		#{EXT1},	
+		#{EXT2},	
+		#{EXT3},	
+		#{EXT4},	
+		#{EXT5}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			ORDER_DETAIL_ID = #{ORDER_DETAIL_ID}
+	</delete>
+	
+	<!-- 删除-->
+	<delete id="deleteByMainID" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			ORDER_ID = #{ORDER_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="editPurchaseStatus" parameterType="pd">
+		update
+			<include refid="tableName"></include>
+		set 
+			UPDATE_USER = #{UPDATE_USER},
+			UPDATE_DATE = #{UPDATE_DATE},
+			DETAIL_STATUS = #{DETAIL_STATUS}			
+		where 
+		ORDER_DETAIL_ID = #{ORDER_DETAIL_ID}
+	</update>
+	
+	<!-- 修改 -->
+	<update id="editPurchaseStatusByPOrder" parameterType="pd">
+		update
+			<include refid="tableName"></include>
+		set 
+			UPDATE_USER = #{UPDATE_USER},
+			UPDATE_DATE = #{UPDATE_DATE},
+			DETAIL_STATUS = #{DETAIL_STATUS}			
+		where 
+			ORDER_DETAIL_ID in 
+			(select b.ORDER_DETAIL_ID
+			from purchases_order_detail b where b.PORDER_ID = #{PORDER_ID}) 			
+	</update>
+	
+	<!-- 修改 -->
+	<update id="editPurchaseStatusByPOrderDetail" parameterType="pd">
+		update
+			<include refid="tableName"></include>
+		set 
+			UPDATE_USER = #{UPDATE_USER},
+			UPDATE_DATE = #{UPDATE_DATE},
+			DETAIL_STATUS = #{DETAIL_STATUS}			
+		where 
+			ORDER_DETAIL_ID in 
+			(select b.ORDER_DETAIL_ID
+				from purchases_order_detail b where b.PORDER_DETAIL_ID = #{PORDER_DETAIL_ID}) 			
+	</update>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			<if test="ORDER_ID != null and ORDER_ID != ''">ORDER_ID = #{ORDER_ID},</if>
+			<if test="MATERIAL_ID != null and MATERIAL_ID != ''">MATERIAL_ID = #{MATERIAL_ID},</if>
+			<if test="MATERIAL_NUM != null">MATERIAL_NUM = #{MATERIAL_NUM},</if>
+			<if test="MATERIAL_WEIGHT != null">MATERIAL_WEIGHT = #{MATERIAL_WEIGHT},</if>
+			<if test="LINE_ORDER != null">LINE_ORDER = #{LINE_ORDER},</if>
+			<if test="SINGLE_WEIGHT != null">SINGLE_WEIGHT = #{SINGLE_WEIGHT},</if>
+			<if test="MATERIAL_NUM_PRICE != null">MATERIAL_NUM_PRICE = #{MATERIAL_NUM_PRICE},	</if>
+			<if test="ORDER_TYPE_NO != null and ORDER_TYPE_NO != ''">ORDER_TYPE_NO = #{ORDER_TYPE_NO},</if>
+			<if test="ORDER_SPEC != null and ORDER_SPEC != ''">ORDER_SPEC = #{ORDER_SPEC},</if>
+			<if test="DEMAND_SPEC != null and DEMAND_SPEC != ''">DEMAND_SPEC = #{DEMAND_SPEC},</if>
+			<if test="ORDER_SPEC_THICKNESS != null and ORDER_SPEC_THICKNESS != ''">ORDER_SPEC_THICKNESS = #{ORDER_SPEC_THICKNESS},</if>
+			<if test="ORDER_SPEC_WIDTH != null and ORDER_SPEC_WIDTH != ''">ORDER_SPEC_WIDTH = #{ORDER_SPEC_WIDTH},</if>
+			<if test="ORDER_SPEC_LENGTH != null and ORDER_SPEC_LENGTH != ''">ORDER_SPEC_LENGTH = #{ORDER_SPEC_LENGTH},</if>
+			<if test="ORDER_DENSITY_NUM != null">ORDER_DENSITY_NUM = #{ORDER_DENSITY_NUM},</if>
+			<if test="MATERIAL_WEIGHT_PRICE != null">MATERIAL_WEIGHT_PRICE = #{MATERIAL_WEIGHT_PRICE},</if>
+			<if test="MATERIAL_TAX_RATE != null">MATERIAL_TAX_RATE = #{MATERIAL_TAX_RATE},</if>
+			<if test="MATERIAL_TOTAL_AMT != null">MATERIAL_TOTAL_AMT = #{MATERIAL_TOTAL_AMT},</if>
+			<if test="SET_PRICE_FLAG != null and SET_PRICE_FLAG != ''">SET_PRICE_FLAG = #{SET_PRICE_FLAG},</if>
+			<if test="MAKE_TYPE != null and MAKE_TYPE != ''">MAKE_TYPE = #{MAKE_TYPE},</if>
+			<if test="MAKE_PRICE != null">MAKE_PRICE = #{MAKE_PRICE},</if>
+			<if test="MAKE_TOTAL_AMT != null">MAKE_TOTAL_AMT = #{MAKE_TOTAL_AMT},</if>
+			<if test="DISCOUNT_AMT != null">DISCOUNT_AMT = #{DISCOUNT_AMT},</if>
+			<if test="CUSTOMER_DRAWING_NO != null and CUSTOMER_DRAWING_NO != ''">CUSTOMER_DRAWING_NO = #{CUSTOMER_DRAWING_NO},</if>
+			<if test="PRICE_TYPE != null and PRICE_TYPE != ''">PRICE_TYPE = #{PRICE_TYPE},</if>
+			<if test="TAX_RATE != null">TAX_RATE = #{TAX_RATE},</if>
+			<if test="MATERIAL_TAX_AMT != null">MATERIAL_TAX_AMT = #{MATERIAL_TAX_AMT},</if>
+			<if test="MATERIAL_EXD_TAX_AMT != null">MATERIAL_EXD_TAX_AMT = #{MATERIAL_EXD_TAX_AMT},</if>
+			<if test="TOTAL_AMT != null">TOTAL_AMT = #{TOTAL_AMT},</if>
+			<if test="PACK_TYPE != null and PACK_TYPE != ''">PACK_TYPE = #{PACK_TYPE},</if>
+			<if test="COMPANY_ID != null and COMPANY_ID != ''">COMPANY_ID = #{COMPANY_ID},</if>
+			<if test="DEPARTMENT_ID != null and DEPARTMENT_ID != ''">DEPARTMENT_ID = #{DEPARTMENT_ID},</if>
+			<if test="GROUP_ID != null and GROUP_ID != ''">GROUP_ID = #{GROUP_ID},</if>			
+			<if test="REMARK_DETAIL != null and REMARK_DETAIL != ''">REMARK_DETAIL = #{REMARK_DETAIL},</if>
+			<if test="DETAIL_STATUS != null and DETAIL_STATUS != ''">DETAIL_STATUS = #{DETAIL_STATUS},</if>
+			<if test="EXT1 != null and EXT1 != ''">EXT1 = #{EXT1},</if>
+			<if test="EXT2 != null and EXT2 != ''">EXT2 = #{EXT2},</if>
+			<if test="EXT3 != null and EXT3 != ''">EXT3 = #{EXT3},</if>
+			<if test="EXT4 != null and EXT4 != ''">EXT4 = #{EXT4},</if>
+			<if test="EXT5 != null and EXT5 != ''">EXT5 = #{EXT5},</if>
+			UPDATE_USER = #{UPDATE_USER},
+			UPDATE_DATE = #{UPDATE_DATE}
+		where 
+			ORDER_DETAIL_ID = #{ORDER_DETAIL_ID}
+	</update>
+	
+	<update id="commitByOrderID" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			UPDATE_USER = #{UPDATE_USER},
+			UPDATE_DATE = #{UPDATE_DATE},
+			DETAIL_STATUS = #{DETAIL_STATUS}
+		where
+			ORDER_ID = #{ORDER_ID}
+	</update>
+	
+	
+	<select id="getOrderSumNum" parameterType="pd" resultType="pd">
+		SELECT SUM(IFNULL(MATERIAL_NUM,0)) as "MATERIAL_NUM",
+			 SUM(IFNULL(MATERIAL_WEIGHT,0)) as "MATERIAL_WEIGHT",
+			 SUM(IFNULL(MATERIAL_TAX_AMT,0)) as "MATERIAL_TAX_AMT",
+			 SUM(IFNULL(MATERIAL_EXD_TAX_AMT,0)) as "MATERIAL_EXD_TAX_AMT",
+			 SUM(IFNULL(MATERIAL_TOTAL_AMT,0)) as "MATERIAL_TOTAL_AMT",
+			 SUM(IFNULL(MAKE_TOTAL_AMT,0)) as "MAKE_TOTAL_AMT",
+			 SUM(IFNULL(DISCOUNT_AMT,0)) as "DISCOUNT_AMT",
+			 SUM(IFNULL(TOTAL_AMT,0)) as "TOTAL_AMT"
+		FROM sales_order_detail
+		WHERE ORDER_ID = #{ORDER_ID}
+	</select>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			ORDER_DETAIL_ID = #{ORDER_DETAIL_ID}
+	</select>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findByDemandMainId" parameterType="pd" resultType="pd">
+		select 
+		 A.*
+		from 
+		  SALES_ORDER_DETAIL A,
+		  SALES_ORDER B,
+		  PRODUCTION_DEMAND_MAIN C
+		where 
+			C.DEMAND_MAIN_ID = #{DEMAND_MAIN_ID}
+			AND C.DEMAND_TAG = B.ORDER_NO
+			AND B.ORDER_ID = A.ORDER_ID
+			AND A.MATERIAL_ID = C.MOULD_MATERIAL_ID
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		SELECT 	a.ORDER_ID,
+				a.ORDER_NO,
+				a.CUSTOMER_ID,
+				c.TRADEUNIT_NAME as "CUSTOMER_NAME",
+				a.DELIVERY_DATE,
+				a.DESTINATION,
+				a.ORDER_DATE,
+				a.REMARK as "M_REMARK",
+				A.TAX_RATE,
+				b.ORDER_DETAIL_ID,
+				b.MATERIAL_ID,
+				d.MATERIAL_CODE,
+				d.MATERIAL_NAME,
+				d.MATERIAL_SPEC,
+				d.COLOR_INFO,
+				d.WEIGHT_REAL,
+				d.MATERIAL_DESC,
+				b.MATERIAL_NUM,
+				b.MATERIAL_WEIGHT,
+				b.SET_PRICE_FLAG,
+				b.REMARK_DETAIL,
+				B.MAKE_TOTAL_AMT,
+				B.DISCOUNT_AMT,
+				B.MATERIAL_TAX_AMT,	
+				B.MATERIAL_EXD_TAX_AMT,	
+				B.TOTAL_AMT,	
+				B.PACK_TYPE,
+				B.DETAIL_STATUS
+		FROM sales_order a,sales_order_detail b,baseinfo_tradeunit c,baseinfo_material d
+		WHERE a.ORDER_ID = b.ORDER_ID
+				and a.CUSTOMER_ID = c.TRADEUNIT_ID
+				and b.MATERIAL_ID = d.MATERIAL_ID
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				<!--	根据需求自己加检索条件
+					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or 
+					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+				-->
+				)
+		</if>
+		<if test="pd.SALE_ORDER_ID != null and pd.SALE_ORDER_ID != ''"><!-- 关键词检索 -->
+			and
+				(
+					a.ORDER_ID = #{pd.SALE_ORDER_ID}
+				)
+		</if>
+		<if test="pd.ORDER_DETAIL_ID != null and pd.ORDER_DETAIL_ID != ''"><!-- 关键词检索 -->
+			and
+				(
+					b.ORDER_DETAIL_ID = #{pd.ORDER_DETAIL_ID}
+				)
+		</if>
+		<if test="pd.DETAIL_STATUS != null and pd.DETAIL_STATUS != ''"><!-- 关键词检索 -->
+			and b.DETAIL_STATUS = #{pd.DETAIL_STATUS}
+		</if>
+		ORDER BY B.CREATE_DATE
+	</select>
+		
+	<!-- 列表 -->
+	<select id="listSaleOrderWithDetail" parameterType="pd" resultType="pd">
+		SELECT 	a.ORDER_ID,
+				a.ORDER_NO,
+				a.CUSTOMER_ID,
+				c.TRADEUNIT_NAME as "CUSTOMER_NAME",
+				a.DELIVERY_DATE,
+				a.DESTINATION,
+				a.ORDER_DATE,
+				a.REMARK as "M_REMARK",
+				b.ORDER_DETAIL_ID,
+				b.MATERIAL_ID,
+				d.MATERIAL_CODE,
+				d.MATERIAL_NAME,
+				d.COLOR_INFO,
+				d.WEIGHT_REAL,
+				d.MATERIAL_DESC,
+				b.MATERIAL_NUM,
+				b.MATERIAL_WEIGHT,
+				b.PACK_TYPE,
+				b.SET_PRICE_FLAG,
+				b.REMARK
+		FROM sales_order a,sales_order_detail b,baseinfo_tradeunit c,baseinfo_material d
+		WHERE a.ORDER_ID = b.ORDER_ID
+				and a.CUSTOMER_ID = c.TRADEUNIT_ID
+				and b.MATERIAL_ID = d.MATERIAL_ID		
+		<if test="ORDER_DETAIL_ID != null and ORDER_DETAIL_ID != ''"><!-- 关键词检索 -->
+			and
+				(
+					b.ORDER_DETAIL_ID = #{ORDER_DETAIL_ID}
+				)
+		</if>
+		<if test="DETAIL_STATUS != null and DETAIL_STATUS != ''"><!-- 关键词检索 -->
+			and
+				(
+					b.DETAIL_STATUS = #{DETAIL_STATUS}
+				)
+		</if>
+		order by a.CUSTOMER_ID,a.ORDER_NO
+	</select>
+	
+	<!-- 列表 -->
+	<select id="forPurchasedatalistPage" parameterType="page" resultType="pd">
+		SELECT 	a.ORDER_ID,
+				a.ORDER_NO,
+				a.CUSTOMER_ID,
+				c.TRADEUNIT_NAME as "CUSTOMER_NAME",
+				a.DELIVERY_DATE,
+				a.DESTINATION,
+				a.ORDER_DATE,
+				a.REMARK as "M_REMARK",
+				b.ORDER_DETAIL_ID,
+				b.MATERIAL_ID,
+				d.MATERIAL_CODE,
+				d.MATERIAL_NAME,
+				d.COLOR_INFO,
+				d.WEIGHT_REAL,
+				d.MATERIAL_DESC,
+				b.MATERIAL_NUM,
+				b.MATERIAL_WEIGHT,
+				b.SET_PRICE_FLAG,
+				b.REMARK
+		FROM sales_order a,sales_order_detail b,baseinfo_tradeunit c,baseinfo_material d
+		WHERE a.ORDER_ID = b.ORDER_ID
+				and a.CUSTOMER_ID = c.TRADEUNIT_ID
+				and b.MATERIAL_ID = d.MATERIAL_ID
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				<!--	根据需求自己加检索条件
+					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or 
+					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+				-->
+				)
+		</if>
+		<if test="pd.SALE_ORDER_ID != null and pd.SALE_ORDER_ID != ''"><!-- 关键词检索 -->
+			and
+				(
+					a.ORDER_ID = #{pd.SALE_ORDER_ID}
+				)
+		</if>
+		<if test="pd.ORDER_DETAIL_ID != null and pd.ORDER_DETAIL_ID != ''"><!-- 关键词检索 -->
+			and
+				(
+					b.ORDER_DETAIL_ID = #{pd.ORDER_DETAIL_ID}
+				)
+		</if>
+		<if test="pd.DETAIL_STATUS != null and pd.DETAIL_STATUS != ''"><!-- 关键词检索 -->
+			and b.DETAIL_STATUS = #{pd.DETAIL_STATUS}
+		</if>
+		order by a.CUSTOMER_ID,a.ORDER_NO
+	</select>
+		
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+			a.ORDER_DETAIL_ID,	
+			a.ORDER_ID,	
+			a.MATERIAL_ID,	
+			b.MATERIAL_CODE,
+			b.MATERIAL_NAME,
+			b.MATERIAL_DESC,
+			b.MATERIAL_SPEC,
+			b.MATERIAL_SHAPE,
+			if(b.MATERIAL_SPEC_REAL is null or b.MATERIAL_SPEC_REAL='',b.MATERIAL_SPEC,b.MATERIAL_SPEC_REAL) as "MATERIAL_SPEC_REAL",
+			b.TYPE_NO,
+			CONCAT(round(b.WEIGHT_REAL,2),'')  as "WEIGHT_REAL",
+			b.COLOR_INFO,
+			a.LINE_ORDER,
+			a.ORDER_TYPE_NO,
+			a.ORDER_SPEC,
+			a.DEMAND_SPEC,
+			a.ORDER_SPEC_THICKNESS,
+			a.ORDER_SPEC_WIDTH,
+			a.ORDER_SPEC_LENGTH,
+			a.MATERIAL_NUM,	
+			CONCAT(round(a.MATERIAL_WEIGHT,6),'')  as "MATERIAL_WEIGHT",
+			CONCAT(round(a.SINGLE_WEIGHT,6),'')  as "SINGLE_WEIGHT",
+			CONCAT(round(a.MATERIAL_NUM_PRICE,6),'')  as "MATERIAL_NUM_PRICE",
+			CONCAT(round(IFNULL(a.MATERIAL_WEIGHT_PRICE,0),6),'')  as "MATERIAL_WEIGHT_PRICE",
+			CONCAT(round(a.ORDER_DENSITY_NUM,6),'')  as "ORDER_DENSITY_NUM",	
+			CONCAT(round(a.MATERIAL_TAX_RATE,2),'')  as "MATERIAL_TAX_RATE",
+			CONCAT(round(a.MATERIAL_TAX_AMT,2),'')  as "MATERIAL_TAX_AMT",
+			CONCAT(round(a.MATERIAL_EXD_TAX_AMT,2),'')  as "MATERIAL_EXD_TAX_AMT",
+			CONCAT(round(a.MATERIAL_TOTAL_AMT,2),'')  as "MATERIAL_TOTAL_AMT",
+			CONCAT(round(a.TOTAL_AMT,2),'')  as "TOTAL_AMT",
+			a.MAKE_TYPE,
+			a.SET_PRICE_FLAG,
+			CONCAT(round(a.MAKE_PRICE,6),'')  as "MAKE_PRICE",
+			CONCAT(round(IFNULL(a.MAKE_TOTAL_AMT,0),2),'')  as "MAKE_TOTAL_AMT",
+			CONCAT(round(IFNULL(a.DISCOUNT_AMT,0),2),'')  as "DISCOUNT_AMT",
+			a.PACK_TYPE,
+			a.CUSTOMER_DRAWING_NO,	
+			a.COMPANY_ID,	
+			a.DEPARTMENT_ID,	
+			a.GROUP_ID,	
+			a.CREATE_USER,	
+			a.CREATE_DATE,	
+			a.UPDATE_USER,	
+			a.UPDATE_DATE,	
+			replace(a.REMARK_DETAIL,'ltz_br_gtz','\r\n') as "REMARK_DETAIL",	
+			a.DETAIL_STATUS,	
+			a.EXT1,	
+			a.EXT2,	
+			a.EXT3,	
+			a.EXT4,	
+			a.EXT5,
+			C.ORDER_NO
+		from 
+			SALES_ORDER_DETAIL a 
+				left join baseinfo_material b on a.MATERIAL_ID = b.MATERIAL_ID	,			
+			SALES_ORDER C
+		where 
+			A.ORDER_ID = C.ORDER_ID
+			<if test="ORDER_ID != null and ORDER_ID != ''">
+				and a.ORDER_ID = #{ORDER_ID}
+			</if>
+			<if test="ORDER_DETAIL_ID != null and ORDER_DETAIL_ID != ''">
+				and a.ORDER_DETAIL_ID = #{ORDER_DETAIL_ID}
+			</if>
+			<if test="DETAIL_STATUS != null and DETAIL_STATUS != ''">
+				and a.DETAIL_STATUS = #{DETAIL_STATUS}
+			</if>
+			<if test="ORDER_DETAIL_IDS != null and ORDER_DETAIL_IDS != ''">
+				and a.ORDER_DETAIL_ID in 
+				<foreach collection="ORDER_DETAIL_IDS" separator="," open="(" close=")" index="index" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="OrderByClause!= null and OrderByClause != ''">
+				order by ${OrderByClause}
+			</if>
+	</select>
+	
+	<select id="count" parameterType="pd" resultType="int">
+		select count(0)
+		from SALES_ORDER_DETAIL a 
+		where 1=1
+		<if test="ORDER_ID != null and ORDER_ID != ''">
+			and a.ORDER_ID = #{ORDER_ID}
+		</if>
+		<if test="DETAIL_STATUS != null and DETAIL_STATUS != ''">
+			and a.DETAIL_STATUS = #{DETAIL_STATUS}
+		</if>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			ORDER_DETAIL_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- zhudafeng -->
+</mapper>

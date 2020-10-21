@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox
+END
+message_form.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/message_form.mustache
+END
+navbar.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/navbar.mustache
+END
+tabs.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/tabs.mustache
+END
+message_sort.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/message_sort.mustache
+END
+folders.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/folders.mustache
+END
+message_content.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/message_content.mustache
+END
+message_list.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/message_list.mustache
+END
+message_footer.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/message_footer.mustache
+END
+message_select.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/message_select.mustache
+END
+message_actions.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/inbox/message_actions.mustache
+END

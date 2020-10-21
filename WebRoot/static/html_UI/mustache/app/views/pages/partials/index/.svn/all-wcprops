@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/index
+END
+domains.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/index/domains.mustache
+END
+members.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/index/members.mustache
+END
+conversations.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/index/conversations.mustache
+END
+infobox.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/index/infobox.mustache
+END
+comments.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/index/comments.mustache
+END
+tasks.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/index/tasks.mustache
+END

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/pricing
+END
+package-small.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/pricing/package-small.mustache
+END
+package-large.mustache
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/shunshuoerp/!svn/ver/436/shunshuo.scm/WebRoot/static/html_UI/mustache/app/views/pages/partials/pricing/package-large.mustache
+END

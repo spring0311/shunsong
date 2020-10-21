@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AttachmentMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		BASEINFO_ATTACHMENT
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		ATTACHMENT_ID, 
+		BILL_ID, 
+		BILL_TYPE, 
+		TRADEUNIT_ID, 
+		FILE_ORIGINAL_NAME, 
+		FILE_SYSTEM_NAME, 
+		FILE_EXT_NAME, 
+		FILE_SIZE, 
+		FILE_TYPE, 
+		FILE_PATH, 
+		FILE_BROWER_PATH, 
+		COMPANY_ID, 
+		DEPARTMENT_ID, 
+		GROUP_ID, 
+		CREATE_USER, 
+		CREATE_DATE, 
+		MODIFY_USER, 
+		MODIFY_DATE, 
+		REMARK
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{ATTACHMENT_ID}, 
+		#{BILL_ID}, 
+		#{BILL_TYPE}, 
+		#{TRADEUNIT_ID}, 
+		#{FILE_ORIGINAL_NAME}, 
+		#{FILE_SYSTEM_NAME}, 
+		#{FILE_EXT_NAME}, 
+		#{FILE_SIZE}, 
+		#{FILE_TYPE}, 
+		#{FILE_PATH}, 
+		#{FILE_BROWER_PATH}, 
+		#{COMPANY_ID}, 
+		#{DEPARTMENT_ID}, 
+		#{GROUP_ID}, 
+		#{CREATE_USER}, 
+		#{CREATE_DATE}, 
+		#{MODIFY_USER}, 
+		#{MODIFY_DATE}, 
+		#{REMARK}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			ATTACHMENT_ID = #{ATTACHMENT_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			BILL_ID = #{BILL_ID}, 
+			BILL_TYPE = #{BILL_TYPE}, 
+			TRADEUNIT_ID = #{TRADEUNIT_ID}, 
+			FILE_ORIGINAL_NAME = #{FILE_ORIGINAL_NAME}, 
+			FILE_SYSTEM_NAME = #{FILE_SYSTEM_NAME}, 
+			FILE_EXT_NAME = #{FILE_EXT_NAME}, 
+			FILE_SIZE = #{FILE_SIZE}, 
+			FILE_TYPE = #{FILE_TYPE}, 
+			FILE_PATH = #{FILE_PATH}, 
+			FILE_BROWER_PATH = #{FILE_BROWER_PATH},
+			COMPANY_ID = #{COMPANY_ID},
+			DEPARTMENT_ID = #{DEPARTMENT_ID},
+			GROUP_ID = #{GROUP_ID},
+			CREATE_USER = #{CREATE_USER},
+			CREATE_DATE = #{CREATE_DATE},
+			MODIFY_USER = #{MODIFY_USER},
+			MODIFY_DATE = #{MODIFY_DATE},
+			REMARK = #{REMARK}
+		where 
+			ATTACHMENT_ID = #{ATTACHMENT_ID}
+	</update>
+	
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			ATTACHMENT_ID = #{ATTACHMENT_ID}
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+					BARCODE_CODE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')					 
+				)
+		</if>
+		<if test="pd.printstatus!= null and pd.printstatus != ''"><!-- 关键词检索 -->
+			and
+				(
+				  STATUS = #{pd.printstatus}
+				)
+		</if>
+		order by BARCODE_CODE
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+			ATTACHMENT_ID, 
+			BILL_ID, 
+			BILL_TYPE, 
+			TRADEUNIT_ID, 
+			FILE_ORIGINAL_NAME, 
+			FILE_SYSTEM_NAME, 
+			FILE_EXT_NAME, 
+			FILE_SIZE, 
+			FILE_TYPE, 
+			FILE_PATH, 
+			CONCAT(#{BROWER_URL},FILE_PATH,'/',FILE_SYSTEM_NAME) as "FILE_BROWER_PATH", 
+			COMPANY_ID, 
+			DEPARTMENT_ID, 
+			GROUP_ID, 
+			CREATE_USER, 
+			DATE_FORMAT(CREATE_DATE,'%Y-%m-%d %H:%i:%S') as "CREATE_DATE", 
+			MODIFY_USER, 
+			MODIFY_DATE, 
+			REMARK
+		from 
+			<include refid="tableName"></include>
+		where
+		  BILL_ID = #{BILL_ID}			
+		<if test="FILE_TYPE != null and FILE_TYPE != ''"><!-- 关键词检索 -->
+			and
+				(
+				  FILE_TYPE = #{FILE_TYPE}
+				)
+		</if>
+		<if test="FILE_NO_IMAGE != null and FILE_NO_IMAGE != ''"><!-- 关键词检索 -->
+			and
+				(
+				  FILE_TYPE  &lt;&gt; 'image'
+				)
+		</if>
+		order by CREATE_DATE desc
+	</select>
+	
+	
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			BARCODELIST_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- zhudafeng -->
+</mapper>

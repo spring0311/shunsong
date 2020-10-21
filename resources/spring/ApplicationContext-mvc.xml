@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:/com/shunsong/xsd/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/mvc classpath:/com/shunsong/xsd/spring-mvc-4.0.xsd	
+		http://www.springframework.org/schema/context classpath:/com/shunsong/xsd/spring-context-4.0.xsd
+		http://www.springframework.org/schema/task classpath:/com/shunsong/xsd/spring-task-4.0.xsd">
+	
+	<mvc:annotation-driven/>	
+	<mvc:default-servlet-handler/>
+	
+	<context:component-scan base-package="com.shunsong.controller" />
+	
+	<!-- 定时启动功能 -->	 
+	<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+	<task:executor id="myExecutor" pool-size="20"/>
+	<task:scheduler id="myScheduler" pool-size="30"/>
+	
+
+	<!-- 对静态资源文件的访问  restful-->     
+	<mvc:resources mapping="/admin/**" location="/,/admin/" />
+	<mvc:resources mapping="/static/**" location="/,/static/" />
+	<mvc:resources mapping="/plugins/**" location="/,/plugins/" />
+	<mvc:resources mapping="/uploadFiles/**" location="/,/uploadFiles/" /> 
+
+	<!-- 访问拦截  -->  
+  	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/**"/>
+			<bean class="com.shunsong.interceptor.LoginHandlerInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	 
+	<!-- 配置SpringMVC的视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean id="exceptionResolver" class="com.shunsong.resolver.MyExceptionResolver"></bean>
+	<!-- 上传拦截，如最大上传值及最小上传值 -->
+	  <bean id="multipartResolver"   class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >   
+		  <property name="maxUploadSize">    
+	          <value>104857600</value>    
+	       </property>   
+	        <property name="maxInMemorySize">    
+	            <value>4096</value>    
+	        </property>   
+	         <property name="defaultEncoding">    
+	            <value>utf-8</value>    
+	        </property> 
+    </bean>  
+    
+    <!-- 注册XmlViewResolver，用于iReport & JasperReports报表生成 -->  
+	<bean id="jasperReportResolver" class="org.springframework.web.servlet.view.XmlViewResolver">  
+	    <property name="order">  
+	        <value>0</value>  
+	    </property>  
+	    <property name="location">  
+	        <value>WEB-INF/jasper/jasper-defs.xml</value>  
+	    </property>  
+	</bean> 	
+	
+	
+</beans>
